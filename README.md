@@ -67,8 +67,168 @@ is the primary way that many Docker users interact with Docker. When you use com
 ### 3. Docker Registry
 Docker Registry manages and stores the Docker images.
 
-#### There are two types of registries in the Docker -
-- **Public Registry**:  Refers to a publicly accessible repository where Docker images are stored and can be shared with others. Docker Hub is one of the most popular public registries.
-- **Private Registry**: It is used to share images within the enterprise.
+#### There are two types of registries in the Docker
+1. **Public Registry**:  Refers to a publicly accessible repository where Docker images are stored and can be shared with others. Docker Hub is one of the most popular public registries.
+2. **Private Registry**: It is used to share images within the enterprise.
 
+<br><br>
+
+---
+
+## Docker Container
+A container is a lightweight, portable, and self-sufficient software unit that encapsulates an application, 
+its dependencies, and runtime environment. Containers provide isolation from the host system while sharing 
+the host OS kernel, allowing for efficient resource utilization and rapid deployment.
+
+### Why Containers?           
+- **Portability:**  Applications run consistently on different platforms.  
+- **Isolation:** Improved security by isolating from the host system.  
+- **Resource Efficiency:** Containers share the host OS kernel, which reduces resource overhead compared to virtual machines. This efficiency allows for better utilization of system resources and enables running multiple containers on a single host without the need for full OS virtualization.  
+- **Rapid Deployment:** Containers enable rapid and consistent application deployment. They can be easily created, started, stopped, and scaled as needed.
+- **Scalability:** Due to their lightweight nature, containers can be quickly scaled up or down to meet changing demand. This horizontal scalability facilitates efficient load balancing and resource allocation in distributed systems.  
+- **Version Control and Rollback:**  Immutable, simplifying version management.  
+- **DevOps and CI/CD:** Containers play a significant role in modern DevOps practices and Continuous Integration/Continuous Deployment (CI/CD) pipelines. Their consistency and ease of deployment streamline development, testing, and production workflows.  
+- **Ecosystem and Tooling:**  A Containers have a rich ecosystem with a wide array of supporting tools and platforms, such as Docker and Kubernetes. This ecosystem makes it easier for developers and operations teams to manage, orchestrate, and monitor containerized applications effectively.
+- **Microservices Architecture:**  Containers are well-suited for implementing microservices architecture, where applications are broken down into smaller, loosely coupled services. This enables better agility, scalability, and maintainability in complex systems.
+
+
+### Container vs Virtual Machine
+
+
+<div align="center">
+
+  ![Container VS Virtual Machines](https://github.com/MohamedHashish42/TestRepo/assets/81900786/cd6b7412-a624-47db-9287-f7e1d0bd2d50)
+
+</div>
+
+<table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Containers</th>
+                    <th>Virtual Machines</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Definition</td>
+                    <td>A container is a lightweight, portable, and self-sufficient software unit that encapsulates an application, its dependencies, and runtime environment. 
+                    Containers provide isolation from the host system while sharing the host OS kernel, allowing for efficient resource utilization and rapid deployment</td>
+                    <td>A virtual machine (VM) is a software emulation of a computer system that operates as an independent and isolated entity. It includes a complete operating system 
+                    and runs on top of a physical server. VMs enable the execution of multiple instances of different operating systems on a single physical machine, each with its own 
+                    dedicated resources and isolated environment</td>
+                </tr>
+                <tr>
+                    <td>Technology</td>
+                    <td>Containerization technology (e.g., Docker)</td>
+                    <td>Hypervisor-based virtualization (e.g., VMware, VirtualBox)</td>
+                </tr>
+                <tr>
+                    <td>Isolation</td>
+                    <td>Lightweight, share host OS kernel</td>
+                    <td>Emulate full OS stack</td>
+                </tr>
+                <tr>
+                    <td>Overhead</td>
+                    <td>Lower overhead</td>
+                    <td>Higher overhead</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>Faster startup and execution</td>
+                    <td>Slower startup and execution</td>
+                </tr>
+                <tr>
+                    <td>Resource Utilization</td>
+                    <td>More efficient (share host OS resources)</td>
+                    <td>Less efficient (dedicated resources)</td>
+                </tr>
+                <tr>
+                    <td>Portability</td>
+                    <td>Highly portable across environments</td>
+                    <td>Less portable (may require conversion or configuration)</td>
+                </tr>
+                <tr>
+                    <td>Deployment Speed</td>
+                    <td>Rapid deployment</td>
+                    <td>Slower deployment</td>
+                </tr>
+                <tr>
+                    <td>Scalability</td>
+                    <td>Easily scalable</td>
+                    <td>Scalable but with more resource consumption</td>
+                </tr>
+                <tr>
+                    <td>Use Cases</td>
+                    <td>Microservices, DevOps, CI/CD</td>
+                    <td>Legacy applications, OS isolation</td>
+                </tr>
+                <tr>
+                    <td>Isolation Level</td>
+                    <td>Process-level isolation</td>
+                    <td>Full OS-level isolation</td>
+                </tr>
+                <tr>
+                    <td>Security</td>
+                    <td>Slightly lower security (shared kernel)</td>
+                    <td>Stronger isolation (isolated OS stack)</td>
+                </tr>
+                <tr>
+                    <td>Updates and Patches</td>
+                    <td>Faster updates for container images</td>
+                    <td>OS-level updates for VMs</td>
+                </tr>
+                <tr>
+                    <td>Example</td>
+                    <td>Docker, Kubernetes, Podman</td>
+                    <td>VMware, VirtualBox, Hyper-V</td>
+                </tr>
+            </tbody>
+        </table>
+
+### Some Files and Directories Navigation commands using Bash 
+| Command | Description |
+| - | - |
+| `ls`                                |List all files in specific directories |
+| `cd  [directory_name]`              |Navigate to specific folder|
+| `cd .. `                            |Back on step|
+| `cd / `                             |Navigate to root|
+| `mkdir [directory_name]`            |Create new directory |
+| `touch [file]`                      |Create file |
+| `cat [file]`                        |Open file|
+| `cp [file] [directory]`             |Copy file to specific directory |
+| `rm [file_or_directory]`            |Remove file or directory |
+| `pwd`                               |Display the full path of the directory you are currently located in |
+
+### Some docker container commands
+
+
+| Command | Description |
+| - | - |
+| `docker container ls `                                            |List running containers|
+| `docker container ls -a  or docker container ls --all`            |List all containers|
+| `docker container create --name [set_container_name] [image_name]`|Create container|
+| `docker container start [container_name_or_id]`                   |Start one or more stopped containers| 
+| `docker container stop  [container_name_or_id]`                   |Stop one or more opened containers |
+| `docker container run [image_name] `                              |Pull the image if not exist, create and and start a container from an image.|
+| `docker container run -d [image_name] `                           |[--detach or -d] To allow container to run on background|
+| `docker run -it [container_name_or_Id] [command] `                |-it ( Interactive Terminal): take two params (container and command) To execute a specific command on the specific container, for example, opening bash in a specific container|
+| `docker exec -it [container_name_or_id] [command] `               |To enter the container terminal if it is already running|
+| `exit or (ctrl + p )`                                             |To exit from  container terminal|
+| `docker container rm [container_name_or_Id]  `                    |Remove Container|
+| `docker stats [container_name_or_id] `                            |Display a live stream of container(s) resource usage statistics|
+| `docker container inspect [container_name_or_id]`                 |Display detailed information on the container|
+| `docker container inspect --format '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [container_name_or_id]`                                                                   |Get container ip address|
+|`docker container logs [container_name_or_id]`	                    |Fetch the logs of a container|
+
+#### Notes
+Run command do the following 
+1. Pull the image if not exist 
+2. Create a container from it
+3. Start the container
+
+This means the run command equals the following 3 commands
+1. docker image pull [image_name]  
+2. docker container create  [image_name] 
+3. docker container start  [container_name_or_id]
   
