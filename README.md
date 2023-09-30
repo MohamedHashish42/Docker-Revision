@@ -231,4 +231,47 @@ This means the run command equals the following 3 commands
 1. docker image pull [image_name]  
 2. docker container create  [image_name] 
 3. docker container start  [container_name_or_id]
+
+<br><br>
+
+---
+
+## Docker Image
+
+A Docker image is a snapshot of a file system with necessary application code, libraries, and dependencies, along with metadata 
+that defines how to run the software within a container.
+
+### Key characteristics:
+
+#### 1- Layered File System
+Docker images are built using a layered file system. Each image is composed of multiple read-only layers stacked on top of each 
+other, forming a single coherent view. This layered approach provides efficiency, reusability, and versioning capabilities. Docker uses a union file system to combine these layers.
+
+#### 2- Immutable 
+This means that none of its components can be altered after it's built. For instance, you cannot update the code, change the configuration, or modify any of the libraries or dependencies within the image directly. Instead, if you need to make changes to the application, you would typically create a new Docker image with those changes incorporated.
+
+#### 3- Public and Private Repositories
+Docker images can be stored in public or private container registries. Docker Hub is a popular public registry where users can find and share images. Private registries allow organizations to manage and distribute their images securely.
+
+#### 4- Versioning
+Docker images can have multiple versions, allowing developers to control and track changes to the software. Versioning also facilitates rollback to a previous state in case of issues.
+
+#### 5- Efficient Image Distribution
+Docker images are designed for efficient distribution. When pulling or pushing images, Docker only transfers the necessary layers, reducing network bandwidth and speeding up image distribution.
+
+#### 6- Reusability
+Docker images can be reused across different environments and projects, saving time and resources. Cached layers are leveraged when building new images, making subsequent image builds faster.
+
+#### Conclusion
+Docker images play a vital role in the containerization ecosystem, enabling developers to package, distribute, and run applications in isolated environments. They provide a powerful means of encapsulating software and its dependencies, making it easier to manage complex applications and ensuring consistency across development, testing, and production environments.
+
+### Some docker image commands
+| Command | Description |
+| - | - |
+| `docker image inspect  [image_name]`                    |Display detailed information on the image|
+| `docker history [image_name]`                           |Show the history of an image|
+| `docker image rm [image_name]    `                      |Remove image|
+| `docker images ls -q`                                   |List images ids|
+| `docker images rm  $(docker images ls -q)`              |Remove all images|
+
   
