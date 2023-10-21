@@ -274,4 +274,84 @@ Docker images play a vital role in the containerization ecosystem, enabling deve
 | `docker images ls -q`                                   |List images ids|
 | `docker images rm  $(docker images ls -q)`              |Remove all images|
 
+
+<br><br>
+
+---
+
+
+## Dockerfile
+
+A Dockerfile is a text file that contains a set of instructions used to build a Docker image,
+It defines the environment and configuration required for a containerized application.
+
+### Dockerfile Instructions:
+        
+#### 1- Base Image:
+The Dockerfile starts with specifying a base image using the __FROM__ instruction. The base image serves as the 
+starting point for building the new image, it is a minimal image that includes only the necessary components for the application,
+The new image inherits the file system and configuration of the base image. 
+
+   
+#### 2- Working Directory:
+The __WORKDIR__ instruction sets the working directory inside the container. It defines the location where subsequent 
+commands will be executed. Note that if the specified directory doesn't exist, Docker will create it. Note this instruction can be used multiple times within a Dockerfile to change the working directory for different commands.
+   
+#### 3- Copying Files: 
+The __COPY__ or __ADD__ instructions are often used to copy files from the host machine to the container. This is helpful for 
+including application code, configurations, and other necessary files.
+       
+#### 4- Environment Setup: 
+The Dockerfile can include various instructions to set up the environment, such as installing dependencies and setting 
+environment variables.
+
+#### 5- Exposing Ports:
+The __EXPOSE__ instruction informs Docker about the ports the container will listen on at runtime. Note that while the __EXPOSE__ instruction informs Docker about the ports the container will potentially use, it doesn't automatically publish these ports to the host. Ports must be explicitly mapped when running a container using the -p or --publish option to make them accessible externally. 
+
+#### 6- Container Execution: 
+
+The __CMD__ or __ENTRYPOINT__ instruction specifies the command that runs when the container starts.  
+__CMD__, on the other hand, is used to specify the default command and arguments that should be executed when a container is started.  
+
+On the other hand __ENTRYPOINT__ is used to specify the main command that should be executed when a container is started using the image. The default __ENTRYPOINT__ command is /bin/sh -c.
+
+If both __ENTRYPOINT__ and __CMD__ are specified in a Dockerfile, the command specified in __CMD__ will be appended to the ENTRYPOINT command. It acts as an argument for __ENTRYPOINT__. The resulting command will be executed when the container is started.
+
+Look at the following three examples
+
+<table border="1">
+  <tr>
+    <th>Example Description</th>
+    <th>Dockerfile Instruction</th>
+    <th>Docker Run Command</th>
+    <th>Result</th>
+  </tr>
+   <tr>
+    <td>EX 1: Overriding CMD</td>
+    <td><code>CMD ["echo", "Hello, World!"]</code></td>
+    <td><code>docker run my-image echo "Custom Greeting"</code></td>
+    <td>Custom Greeting</td>
+  </tr>
+   <tr>
+    <td>EX 2: Overriding ENTRYPOINT</td>
+    <td><code>ENTRYPOINT ["echo", "Hello, World!"]</code></td>
+    <td><code>docker run  --entrypoint "echo" hello-world-ent  "Custom Greeting"</code></td>
+    <td>Custom Greeting</td>
+  </tr>
+   <tr>
+    <td>EX 3: Passing new argument to ENTRYPOINT</td>
+    <td><code>ENTRYPOINT ["echo", "Hello, World!"]</code></td>
+    <td><code>docker run my-image "Custom Greeting"</code></td>
+    <td>Hello, World! Custom Greeting</td>
+  </tr>
+   
+</table>
+
+For more information  [Entrypoint vs CMD](https://devopscube.com/entrypoint-vs-cmd-explained/)
+
+
+#### 7- Additional Instructions:  
+There are other instructions like __ENV__ (setting environment variables), __VOLUME__ (defining volumes), __RUN__ (executing commands during the image build process), and __LABEL__ (adding metadata to the image) that further customize the container image.
+
+
   
