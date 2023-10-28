@@ -353,5 +353,45 @@ For more information  [Entrypoint vs CMD](https://devopscube.com/entrypoint-vs-c
 #### 7- Additional Instructions:  
 There are other instructions like __ENV__ (setting environment variables), __VOLUME__ (defining volumes), __RUN__ (executing commands during the image build process), and __LABEL__ (adding metadata to the image) that further customize the container image.
 
+<br><br>
+
+---
+
+## Docker Volume
+
+Docker volume is a feature in Docker that allows you to manage and persist data outside the container's lifecycle. it provides a way to share and store data between containers and ensure that the data remains available even if the container is stopped, removed, or replaced. Docker volumes are particularly useful for managing persistent data in containerized applications.
+
+### Volume Types:
+#### 1- Named Volumes
+Named volumes are created using a specified name and managed by Docker. They have identifiable names and are easy to manage and share between containers.  
+```bash
+# Example
+docker run -d --name [container_name]  -v [volume_name]:[/path/in/container] [image_name]
+```
+
+#### 2- Anonymous volumes 
+Anonymous volumes are created without specifying a name, and Docker assigns a random name to them. They are generally used for temporary data.    
+```bash
+# Example
+docker  run -d --name [container_name] -v [/path/in/container] [image_name]
+```
+
+#### 3- Host-Mounted Volumes (Bind Mounts)
+Bind mounts allow you to mount a directory or file from the host machine into the container. This enables sharing data between the host and container, and changes in the mounted directory are immediately reflected in both places.   
+```bash
+# Example
+docker run -d --name [container_name] -v [/path/in/host]:[/path/in/container] [image_name]
+```
+
+### Some docker volume commands
+| Command | Description |
+| - | - |
+| `docker volume ls `                    |List volumes|
+| `docker volume create [volume_name]`   |Create a volume|
+| `docker volume inspect [volume_name]`  |Display detailed information on one or more volumes|
+| `docker volume prune`                  |Remove all unused local volumes|
+| `docker volume rm [volume_name]`       |Remove one or more volumes|
+
+
 
   
