@@ -391,6 +391,55 @@ docker run -d --name [container_name] -v [/path/in/host]:[/path/in/container] [i
 | `docker volume inspect [volume_name]`  |Display detailed information on one or more volumes|
 | `docker volume prune`                  |Remove all unused local volumes|
 | `docker volume rm [volume_name]`       |Remove one or more volumes|
+<br><br>
+
+---
+
+## Docker Network Drivers
+Docker networks are a key feature of Docker that facilitate communication and connectivity between containers. 
+They provide an isolated and secure environment for containers to interact with each other, as well as with 
+external networks, such as the host network or other Docker networks. Docker networks play a vital role in creating complex multi-container applications, microservices-based architectures, and distributed systems.
+
+### 1. Bridge Network:
+This is the default network driver for Docker. Containers connected to a bridge network can communicate with each other via their internal IP addresses on the same host but are isolated from external networks.
+
+<div align="center">
+
+![image](https://github.com/MohamedHashish42/Docker-Revision/assets/81900786/5c13c58a-5fcd-463b-933c-cd5be50a6274)
+
+![image](https://github.com/MohamedHashish42/Docker-Revision/assets/81900786/dc8169c9-081e-4691-ad1b-3ab063616c7a)
+
+</div>
+
+The downside with the bridge driver is that it’s not recommended for production, the containers communicate via IP address instead of automatic service discovery to resolve an IP address to the container name. Every time you run a container, a different IP address gets assigned to it. It may work well for local development or CI/CD, but it’s definitely not a sustainable approach for applications running in production.
+
+Another reason not to use it in production is that it will allow unrelated containers to communicate with each other, which could be a security risk.
+
+### 2. Host Driver:
+Containers using the host network share the network namespace with the host system. They can directly access the host's network stack, This can improve network performance but sacrifices isolation.
+
+One limitation with the host driver is that it doesn’t work on Docker desktop, you need a Linux host to use it.
+
+
+### 3. Overlay Network:
+Overlay networks enable communication between containers running on different Docker hosts. They are essential for creating multi-host Docker clusters.
+
+The Docker daemon routes traffic to containers by their MAC addresses. Using the macvlan driver is sometimes the best choice when dealing with legacy applications that expect to be directly connected to the physical network, rather than routed through the Docker host’s network stack.
+
+### 4.The None Driver
+The none network driver does not attach containers to any network. Containers do not access the external network or communicate with other containers. You can use it when you want to disable the networking on a container.
+
+### Some docker network commands
+
+| Command | Description |
+| - | - |
+| `docker network ls `                                  |List networks|
+| `docker network create [network_name]`                |Create a network|
+| `docker network connect [network_name] [container]`       |Connect a container to a network|
+| `docker network disconnect [network_name] [container]`    |Disconnect a container from a network|
+| `docker network inspect [network_name]`               |Display detailed information on one or more networks|
+| `docker network prune`                                |Remove all unused local networks|
+| `docker network rm [network_name]`                    |Remove one or more networks|
 
 
 
