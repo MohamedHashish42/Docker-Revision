@@ -648,10 +648,12 @@ Here's a basic structure:
 
 
 
-
 <br><br>
 
 ---
+
+## Contributing
+I welcome any suggestions or improvements so If you have any ideas, please open an issue or submit a pull request.
 
 
 
