@@ -44,7 +44,7 @@ Docker follows Client-Server architecture, which includes three main components 
 
 <div align="center">
 
-  ![Docker Architecture](https://github.com/MohamedHashish42/TestRepo/assets/81900786/f2c7b6b5-762b-4ecc-ad7b-3a40ab7daa16)
+  ![Docker Architecture](https://github.com/MohamedHashish42/Docker-Revision/assets/81900786/98cef447-bfc0-416c-8ebc-874437d8c5d4)
 
 </div>
 
@@ -97,7 +97,7 @@ the host OS kernel, allowing for efficient resource utilization and rapid deploy
 
 <div align="center">
 
-  ![Container VS Virtual Machines](https://github.com/MohamedHashish42/TestRepo/assets/81900786/cd6b7412-a624-47db-9287-f7e1d0bd2d50)
+  ![Container VS Virtual Machines](https://github.com/MohamedHashish42/Docker-Revision/assets/81900786/5dac0f2b-5219-451c-80a6-8f23b4d8c748)
 
 </div>
 
@@ -440,6 +440,218 @@ The none network driver does not attach containers to any network. Containers do
 | `docker network inspect [network_name]`               |Display detailed information on one or more networks|
 | `docker network prune`                                |Remove all unused local networks|
 | `docker network rm [network_name]`                    |Remove one or more networks|
+
+<br><br>
+
+---
+## Docker Compose
+Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to define the services, networks, and volumes used by your application in a docker-compose.yml file, and Then, with a single command, you can create and start all the services from your configuration.
+
+### YAML Introduction
+YAML (YAML Ain't Markup Language) is a human-readable data serialization language used to represent data in a structured and easy-to-read format. It is commonly used for configuration files and data exchange.
+
+YAML uses indentation to define the hierarchical structure of data. Indentation with spaces is essential for indicating nested elements. The number of spaces used for indentation should be consistent throughout the file.
+
+#### YAML Basic Syntax
+
+1. **Key-Value Pairs:**  
+   - YAML uses key-value pairs to represent data. The key is followed by a colon (:) and a space, and the value is specified after the colon. For example:
+
+     ```yaml
+        key: value
+     ```
+
+2. **Lists:**  
+   - YAML supports lists, which are represented using hyphens (-) followed by a space, and the list items are indented under the hyphen. For example:
+
+     ```yaml
+         fruits:
+           - apple
+           - orange
+           - banana
+     ```
+
+
+3. **Dictionaries:**  
+   - In YAML, dictionary is a collection of key-value pairs. For example:
+
+     ```yaml
+     # An user dictionary
+          user:
+            name: Mohamed
+            age: 25
+     ```
+
+     ```yaml
+      # list of user dictionaries
+          users:
+            - name: Mohamed
+              age: 25
+              job: programmer
+            - name: Mahmoud
+              age: 30
+              job: manager
+     ```
+  
+
+4. **Nested Structures:**  
+   - YAML allows nesting data structures within each other. Nested elements should be indented further to the right than their parent. For example:
+
+     ```yaml
+         person:
+           name: John Doe
+           age: 30
+           address:
+             city: New York
+             country: USA
+     ```
+
+
+5. **Three initial dashes (---) :**  
+   - While using a YAML if we want to know the start of a file, we will supply **three initial dashes  (---)** at the top of a file.
+      this allow us to add multiple documents in a single file
+
+     ```yaml
+         doc 1
+         ---
+         doc 2
+     ```
+
+         
+         
+
+### docker-compose.yml file:
+This YAML file is the heart of Docker Compose. It defines services, networks, and volumes for your application.   
+Here's a basic structure:
+
+1. **Version:**
+   - Specifies the version of the Docker Compose file format being used. It helps Docker Compose to understand which features and syntax are available.
+     ```yaml
+     version: '3'
+     ```
+
+2. **Services:**
+   - Defines the different containers (services) that make up your application. Each service is a separate container with 
+   its own configuration.
+      ```yaml
+     services:
+       web:
+         image: nginx:latest
+       database:
+         image: postgres:latest
+      ```
+
+    
+3. **Volumes:**
+   -  Volumes are used for persistent storage and data sharing between containers. it can be named volumes or bind mounts for containers
+
+      ```yaml
+      version: "3"
+
+      services:
+        app:
+          image: your_image
+          volumes:
+            - /path/on/host:/path/in/container
+            - named_volume:/path/in/container
+      volumes:
+        named_volume:
+      ```
+      In this example:
+
+    - The first volume (`/path/on/host:/path/in/container`) is a bind mount, where `/path/on/host` on the host machine is mounted     into `/path/in/container` within the container.
+
+    - The second volume (`named_volume:/path/in/container`) is a named volume. Docker Compose will create a volume named `named_volume`, and it will be mounted into `/path/in/container` within the container.
+
+
+4. **Networks:**
+   - Specifies custom networks that connect containers. It allows services to communicate with each other over a private network.
+
+      ```yaml
+      services:
+        web:
+          image: nginx:latest
+          networks:
+            - frontend
+        db:
+          image: postgres:latest
+          networks:
+            - backend
+
+      networks:
+        frontend:
+        backend:
+      ```
+
+5. **Configs:**
+   - Configs are used to provide configuration to services. They can be used to manage non-sensitive configuration data.   
+   They allow services to adapt their behaviour without the need to rebuild a Docker image.
+
+      ```yaml
+      version: '3.8'
+
+      services:
+        web:
+          image: nginx:latest
+          configs:
+            - nginx_config
+
+      configs:
+        nginx_config:
+          file: ./configs/nginx.conf
+      ```
+      For more information  
+      [Configs](https://docs.docker.com/compose/compose-file/08-configs/)
+
+6. **Secrets:**
+   - Secrets are a flavor of Configs focusing on sensitive data such as passwords or API keys.
+
+     ```yaml  
+     version: '3.8'
+
+     services:
+       db:
+         image: postgres:latest
+         secrets:
+           - db_password
+
+     secrets:
+       db_password:
+         file: ./secrets/db_password.txt
+     ```
+     For more information  
+    [Secrets](https://docs.docker.com/compose/compose-file/09-secrets/)
+
+    #### Eaxample
+    This is an article of How to Use it with an Example
+    [What is Docker Compose? How to Use it with an Example](https://www.freecodecamp.org/news/what-is-docker-compose-how-to-use-it/)
+
+### Some docker-compose commands
+
+
+| Command                                       | Description                                                  |
+|-----------------------------------------------|--------------------------------------------------------------|
+| `docker-compose up`                           | Create and start containers.                                 |
+| `docker-compose up -d`                        | Run containers in the background (detached mode).            |
+| `docker-compose down`                         | Stop and remove containers, networks.                        |
+| `docker-compose down -v`                      | Stop and remove containers, networks, volumes.               |
+| `docker-compose ps`                           | List containers.                                             |
+| `docker-compose logs`                         | View output from containers.                                 |
+| `docker-compose exec <service_name> <command>`| Execute a command in a running containers.                   |
+| `docker-compose build`                        | Build or rebuild services defined in the Compose file.       |
+| `docker-compose pull`                         | Pull images for services from their respective repositories. |
+| `docker-compose stop`                         | Stop services.                                               |
+| `docker-compose start`                        | Start services.                                              |
+| `docker-compose restart`                      | Restart services.                                            |
+| `docker-compose pause`                        | Pause services.                                              |
+| `docker-compose unpause`                      | Unpause services.                                            |
+
+
+
+
+<br><br>
+
+---
 
 
 
