@@ -294,8 +294,10 @@ The new image inherits the file system and configuration of the base image.
 
    
 #### 2- Working Directory:
-The __WORKDIR__ instruction sets the working directory inside the container. It defines the location where subsequent 
-commands will be executed. Note that if the specified directory doesn't exist, Docker will create it. Note this instruction can be used multiple times within a Dockerfile to change the working directory for different commands.
+The __WORKDIR__ instruction sets the working directory inside the container, It defines the location where subsequent 
+commands will be executed.   
+Note that if the specified directory doesn't exist, Docker will create it.   
+This instruction can be used multiple times within a Dockerfile to change the working directory for different commands.
    
 #### 3- Copying Files: 
 The __COPY__ or __ADD__ instructions are often used to copy files from the host machine to the container. This is helpful for 
@@ -391,6 +393,8 @@ docker run -d --name [container_name] -v [/path/in/host]:[/path/in/container] [i
 | `docker volume inspect [volume_name]`  |Display detailed information on one or more volumes|
 | `docker volume prune`                  |Remove all unused local volumes|
 | `docker volume rm [volume_name]`       |Remove one or more volumes|
+
+
 <br><br>
 
 ---
