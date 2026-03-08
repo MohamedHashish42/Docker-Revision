@@ -297,6 +297,17 @@ Docker images play a vital role in the containerization ecosystem, enabling deve
 A Dockerfile is a text file that contains a set of instructions used to build a Docker image,
 It defines the environment and configuration required for a containerized application.
 
+
+
+<div align="center">
+
+  ![Dockerfile](https://github.com/user-attachments/assets/f8330a48-bb6f-4942-85e4-7c5ffcf281ca)
+
+</div>
+
+
+
+
 ### Dockerfile Instructions:
         
 #### 1- Base Image:
@@ -324,14 +335,19 @@ The __EXPOSE__ instruction informs Docker about the ports the container will lis
 
 #### 6- Container Execution: 
 
-The __CMD__ or __ENTRYPOINT__ instruction specifies the command that runs when the container starts.  
-__CMD__, on the other hand, is used to specify the default command and arguments that should be executed when a container is started.  
+The **CMD** and **ENTRYPOINT** instructions define what command runs when a container starts.
 
-On the other hand __ENTRYPOINT__ is used to specify the main command that should be executed when a container is started using the image. The default __ENTRYPOINT__ command is /bin/sh -c.
+**CMD** is used to specify the **default command and arguments** for the container.  
+This command can be **easily overridden** when running the container using `docker run`.
 
-If both __ENTRYPOINT__ and __CMD__ are specified in a Dockerfile, the command specified in __CMD__ will be appended to the ENTRYPOINT command. It acts as an argument for __ENTRYPOINT__. The resulting command will be executed when the container is started.
+**ENTRYPOINT** is used to define the **main executable** of the container.  
+Unlike CMD, the ENTRYPOINT command **is not replaced** when you pass a command to `docker run`.  
+Instead, the provided command is passed as an **argument** to ENTRYPOINT.  
+However you can explicitly override ENTRYPOINT using the `--entrypoint` flag.
 
-Look at the following three examples
+If both **ENTRYPOINT** and **CMD** are defined in the Dockerfile, the value of **CMD** will be passed as **arguments to ENTRYPOINT**.
+
+Look at the following examples:
 
 <table border="1">
   <tr>
@@ -340,25 +356,28 @@ Look at the following three examples
     <th>Docker Run Command</th>
     <th>Result</th>
   </tr>
-   <tr>
+
+  <tr>
     <td>EX 1: Overriding CMD</td>
     <td><code>CMD ["echo", "Hello, World!"]</code></td>
     <td><code>docker run my-image echo "Custom Greeting"</code></td>
     <td>Custom Greeting</td>
   </tr>
-   <tr>
+
+  <tr>
     <td>EX 2: Overriding ENTRYPOINT</td>
     <td><code>ENTRYPOINT ["echo", "Hello, World!"]</code></td>
-    <td><code>docker run  --entrypoint "echo" hello-world-ent  "Custom Greeting"</code></td>
+    <td><code>docker run --entrypoint echo my-image "Custom Greeting"</code></td>
     <td>Custom Greeting</td>
   </tr>
-   <tr>
-    <td>EX 3: Passing new argument to ENTRYPOINT</td>
-    <td><code>ENTRYPOINT ["echo", "Hello, World!"]</code></td>
-    <td><code>docker run my-image "Custom Greeting"</code></td>
-    <td>Hello, World! Custom Greeting</td>
+
+  <tr>
+    <td>EX 3: Passing arguments to ENTRYPOINT</td>
+    <td><code>ENTRYPOINT ["echo", "Hello"]</code></td>
+    <td><code>docker run my-image "World"</code></td>
+    <td>Hello World</td>
   </tr>
-   
+
 </table>
 
 For more information  [Entrypoint vs CMD](https://devopscube.com/entrypoint-vs-cmd-explained/)
